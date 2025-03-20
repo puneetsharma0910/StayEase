@@ -18,7 +18,7 @@ main()
   });
 const sampledata = async () => {
   await Listing.deleteMany({});
-  await Listing.insertMany(initdata.data);
+   await Listing.insertMany(initdata);
   console.log("inserted success");
 };
 sampledata()
