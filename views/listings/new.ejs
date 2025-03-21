@@ -1,34 +1,112 @@
 <% layout('/layouts/boilerplate') -%>
-  <body>
-    <h3>Enter Listing</h3>
-    <form action="/listings" method="POST">
-      <input name="listing[title]" type="text" placeholder="Enter title" />
-      <br />
-      <br />
+<body>
+  <h3 class="text-center mt-3">Enter Listing</h3>
+  <form action="/listings" novalidate method="POST" class="needs-validation">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        
+        <!-- Title Field (Separate Row) -->
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input
+              name="listing[title]"
+              required
+              type="text"
+              placeholder="Enter title"
+              class="form-control"
+            />
+            <div class="invalid-feedback">
+              Please Enter valid Title
+            </div>
+          </div>
+        </div>
 
-      <textarea
-        name="listing[description]"
-        id=""
-        placeholder="Enter description"
-      ></textarea>
-      <br />
+        <!-- Image Field (Separate Row) -->
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input
+              type="text"
+              required
+              name="listing[image]"
+              class="form-control"
+              placeholder="Enter image URL/Link"
+            />
+          </div>
+        </div>
 
-      <br />
+        <!-- Price and Country Section -->
+        <div class="row">
+          <div class="col-lg-6 col-md-12 mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input
+              type="number"
+              required
+              class="form-control"
+              placeholder="Enter price"
+              name="listing[price]"
+              
+            />
+            <div class="invalid-feedback">
+              Please Enter valid Price
+            </div>
+          </div>
 
-      <input type="text" name="listing[image]" placeholder="Enter image url/Link" />
-      <br />
-      <br />
-      <input type="number" placeholder="Enter price" name="listing[price]" />
-      <br />
-      <br />
-      <input type="text" placeholder="Enter country" name="listing[country]" />
-      <br />
-      <br />
+          <div class="col-lg-6 col-md-12 mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input
+              type="text"
+              required
+              class="form-control"
+              placeholder="Enter country"
+              name="listing[country]"
+            />
+            <div class="invalid-feedback">
+              Please Enter valid Country
+            </div>
+          </div>
+        </div>
 
-      <input type="text " placeholder="Enter location" name="listing[location]" />
-      <br />
-      <br />
-      <button>Add</button>
-    </form>
-  </body>
+        <!-- Location Field -->
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input
+              type="text"
+              required
+              class="form-control"
+              placeholder="Enter location"
+              name="listing[location]"
+            />
+            <div class="invalid-feedback">
+              Please Enter valid location
+            </div>
+          </div>
+        </div>
 
+        <!-- Description Field -->
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              name="listing[description]"
+              required
+              class="form-control"
+              placeholder="Enter description"
+            ></textarea>
+            <div class="invalid-feedback">
+              Please Enter valid description
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center mb-3">
+          <button class="btn btn-dark add-btn">Add</button>
+        </div>
+        
+      </div>
+    </div>
+  </form>
+</body>
