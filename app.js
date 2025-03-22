@@ -7,7 +7,8 @@ const path = require("path");
 const methodOverride = require("method-override");
 const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError");
-const { listingSchema } = require("./schema");
+const { listingSchema,reviewSchema } = require("./schema");
+const Review = require("./models/review");
 const port = 8080;
 
 // Set EJS as the view engine
@@ -32,6 +33,17 @@ const validateListing = (req, res, next) => {
   let { err } = listingSchema.validate(req.body);
   if (err) {
     let errMsg = error.details((el)=>el.message).join(",")
+    throw new ExpressError(400, err);
+  } else {
+    next();
+  }
+};
+
+
+const validateReview = (req, res, next) => {
+  let { err } = reviewSchema.validate(req.body);
+  if (err) {
+    let errMsg = err.details((el)=>el.message).join(",")
     throw new ExpressError(400, err);
   } else {
     next();
@@ -111,6 +123,17 @@ app.delete(
     res.redirect("/listings");
   })
 );
+//review route
+app.post("/listings/:id/reviews", validateReview ,wrapAsync( async (req,res) => {
+  let listing = await Listing.findById(req.params.id);
+  let newReview = new Review(req.body.review)
+
+  listing.reviews.push(newReview);
+  await newReview.save();
+  await listing.save();
+  res.redirect(`/listings/${listing._id}`)
+
+}))
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page not found"));
 });
