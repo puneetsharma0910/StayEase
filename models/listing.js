@@ -1,27 +1,38 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Review = require("./review.js");
 
 const listingSchema = new Schema({
   title: {
     type: String,
     required: true,
   },
-  description:String,
-  
+  description: String,
+
   image: {
-    type:String,
-    default:"https://img.freepik.com/premium-photo/wide-angle-shot-single-tree-growing-clouded-sky-sunset-surrounded-by-grass_181624-22807.jpg?semt=ais_hybrid",
-    set:(v)=> v ===""?"https://img.freepik.com/premium-photo/wide-angle-shot-single-tree-growing-clouded-sky-sunset-surrounded-by-grass_181624-22807.jpg?semt=ais_hybrid" : v
+    type: String,
+    default:
+      "https://img.freepik.com/premium-photo/wide-angle-shot-single-tree-growing-clouded-sky-sunset-surrounded-by-grass_181624-22807.jpg?semt=ais_hybrid",
+    set: (v) =>
+      v === ""
+        ? "https://img.freepik.com/premium-photo/wide-angle-shot-single-tree-growing-clouded-sky-sunset-surrounded-by-grass_181624-22807.jpg?semt=ais_hybrid"
+        : v,
   },
   price: Number,
   location: String,
   country: String,
-  reviews:[
+  reviews: [
     {
       type: Schema.Types.ObjectId,
-      ref : "Review"
-    }
-  ]
+      ref: "Review",
+    },
+  ],
+});
+
+listingSchema.post("findOneAndDelete", async (listing) => {
+  if (listing) {
+    await Review.deleteMany({ reviews: { _id: { $in: listing.reviews } } });
+  }
 });
 const Listing = mongoose.model("Listing", listingSchema);
 module.exports = Listing;
