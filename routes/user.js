@@ -46,6 +46,7 @@ router.post(
   }),
   (req, res) => {
     req.flash("success", "Welcome back!");
+    let redirectUrl = res.locals.redirectUrl || "/listings";
     res.redirect(res.locals.redirectUrl);
   }
 );

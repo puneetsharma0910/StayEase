@@ -23,7 +23,7 @@ router.get(
   wrapAsync(async (req, res) => {
     try {
       const allListings = await Listing.find();
-      res.render("listings/index", { allListings }); // ✅ Corrected path
+      res.render("listings/index", { allListings }); 
     } catch (err) {
       console.log(err);
       res.status(500).send("Error fetching listings");
@@ -50,7 +50,7 @@ router.get(
   "/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id).populate("reviews").populate("owner");
     if (!listing) {
       req.flash("error", " Listing you requested does not exist!");
       res.redirect("/listings");
@@ -66,6 +66,7 @@ router.post(
   validateListing,
   wrapAsync(async (req, res, next) => {
     const newlisting = new Listing(req.body.listing);
+    newlisting.owner = req.user._id
     await newlisting.save();
     req.flash("success", "New Listing created!");
     res.redirect("/listings");
