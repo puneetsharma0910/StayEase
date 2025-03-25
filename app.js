@@ -1,21 +1,24 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-
 const ejsMate = require("ejs-mate");
 const path = require("path");
 const methodOverride = require("method-override");
-
 const ExpressError = require("./utils/ExpressError");
-
+const session = require("express-session");
 const port = 8080;
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js")
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
+
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
@@ -29,18 +32,39 @@ main()
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
+const sessionOptions = {
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+app.use(session(sessionOptions));
+app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(LocalStrategy);
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error"); // Also add error messages
+  next();
+});
 
 app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews)
+app.use("/listings/:id/reviews", reviews);
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page not found"));
 });
 
 //middleware
 app.use((err, req, res, next) => {
-  let { statusCode, message } = err;
-  // res.status(statusCode).send(message);
+  let { statusCode = 500, message = "Something went wrong" } = err;
   res.status(statusCode).render("listings/error.ejs", { message });
 });
 
@@ -48,6 +72,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
 
 module.exports = app;
