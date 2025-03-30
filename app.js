@@ -28,13 +28,14 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 // MongoDB connection
-const MONGO_URL = "mongodb://localhost:27017/StayEase";
+//const MONGO_URL = "mongodb://localhost:27017/StayEase";
+const atlas_db = process.env.ATLAS_DB;
 main()
   .then(() => console.log("MongoDB is connected"))
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(atlas_db);
 }
 const sessionOptions = {
   secret: "mysupersecretcode",

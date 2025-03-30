@@ -242,3 +242,15 @@ body {
   border: none !important;
 
 }
+
+
+
+
+/* style for map */
+
+#map { 
+   
+  height:100px;
+  width:80vw;
+  border-radius: 20px;
+}
