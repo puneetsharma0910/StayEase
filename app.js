@@ -15,6 +15,9 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js")
 const userRouter = require("./routes/user.js")
 
+require('dotenv').config();
+
+
 // Set EJS as the view engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
