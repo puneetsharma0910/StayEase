@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review.js");
-const User = require("./user.js")
+const User = require("./user.js");
+const { string } = require("joi");
 
 const listingSchema = new Schema({
   title: {
@@ -11,13 +12,8 @@ const listingSchema = new Schema({
   description: String,
 
   image: {
-    type: String,
-    default:
-      "https://img.freepik.com/premium-photo/wide-angle-shot-single-tree-growing-clouded-sky-sunset-surrounded-by-grass_181624-22807.jpg?semt=ais_hybrid",
-    set: (v) =>
-      v === ""
-        ? "https://img.freepik.com/premium-photo/wide-angle-shot-single-tree-growing-clouded-sky-sunset-surrounded-by-grass_181624-22807.jpg?semt=ais_hybrid"
-        : v,
+    url:String,
+    filename:String,
   },
   price: Number,
   location: String,
