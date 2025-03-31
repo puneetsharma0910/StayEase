@@ -6,17 +6,17 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const port = 8080;
 const listingRouter = require("./routes/listings.js");
 const reviewRouter = require("./routes/review.js");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User = require("./models/user.js")
-const userRouter = require("./routes/user.js")
+const User = require("./models/user.js");
+const userRouter = require("./routes/user.js");
 
-require('dotenv').config();
-
+require("dotenv").config();
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
@@ -37,8 +37,20 @@ main()
 async function main() {
   await mongoose.connect(atlas_db);
 }
+
+const store = MongoStore.create({
+  mongoUrl: atlas_db,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+store.on("error", () => {
+  console.log("error in Mongo session store", err);
+});
 const sessionOptions = {
-  secret: "mysupersecretcode",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -65,7 +77,7 @@ app.use((req, res, next) => {
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
-app.use("/",userRouter)
+app.use("/", userRouter);
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page not found"));
 });
