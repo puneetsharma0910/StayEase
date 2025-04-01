@@ -50,7 +50,7 @@
 
     "express-session": "^1.18.1",
 
-    "express-sessions": "^1.0.6",
+    "express-sessions": "^1.0.1",
 
     "joi": "^17.13.3",
 
