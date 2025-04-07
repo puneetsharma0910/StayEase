@@ -1,114 +1,91 @@
-# StayEase 🏡 - A MERN-Stack Rental Platform
-StayEase is a **MERN-stack** application that allows users to list and explore rental properties. It provides features like adding, editing, and deleting listings, along with a review system.
+# StayEase
 
----
+StayEase is a full-fledged MERN stack Airbnb clone that allows users to list, search, and book accommodations seamlessly. It includes features such as authentication, property management, booking functionality, and cloud-based image storage.
 
-## 🚀 Key Features
+## 📌 Features
 
-### 🔑 User Authentication
-- Secure login and signup using **Passport.js**.
-- Session-based authentication with **express-session**.
-- Flash messages for user-friendly notifications.
+- 🏠 **User Authentication**: Secure login and registration with JWT authentication.
+- 📍 **Property Listings**: Users can add, update, and delete their listings.
+- 📅 **Booking System**: Real-time booking with availability checks.
+- 💳 **Payments**: Secure payment gateway integration.
+- 📷 **Image Uploads**: Cloudinary integration for image storage.
+- 🛠️ **Tech Stack**: MERN (MongoDB, Express.js, React, Node.js) with Tailwind CSS for styling.
 
-### 🏠 Listings Management
-- **View** all rental property listings.
-- **Add** new listings with title, price, location, country, and images.
-- **Edit/Delete** listings (authorization required).
+## 🖼️ Screenshots
 
-### ⭐ Reviews System
-- Users can submit, edit, and delete reviews for listings.
-- Only the author of a review can modify or remove it.
-- One-to-Many relationship between Users and Reviews.
+### Home Page
+![Home Page](screenshots/homepage.png)
 
-### 🗺️ Interactive Map Integration
-- **Mapbox** integration for visualizing property locations.
-- Users can view property locations on an interactive map.
+### Add New Listing
+![Add New Listing Details](screenshots/addnewlisting.png)
 
-### 📱 Responsive Design
-- **Bootstrap-based UI** for a seamless experience across devices.
+### Signup Page
+![Signup Page](screenshots/signupPage.png)
 
----
+### Login Page
+![Login Page](screenshots/loginPage.png)
 
-## 🛠️ Tech Stack
+### Show Listing Page
+![Show Listing Page](screenshots/showlisting.png)
 
-- **Frontend**: EJS (Embedded JavaScript), Bootstrap, HTML, CSS
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (Mongoose ODM)
-- **Authentication & Security**: Passport.js, Express Sessions, Flash Messages
-- **Mapping**: Mapbox API
+### Show Location
+![Show Location](screenshots/showlocation.png)
 
----
+## 🚀 Installation Guide
 
-## 📂 Project Setup
+### Prerequisites
+Ensure you have the following installed:
+- Node.js
+- MongoDB
+- Git
 
-### 1️⃣ Clone the Repository
-```bash
-git clone https://github.com/puneetsharma0910/StayEase.git
-cd StayEase
-```
+### Steps
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/puneetsharma0910/StayEase.git
+   cd StayEase
+   ```
 
-### 2️⃣ Install Dependencies
-```bash
-npm install
-```
+2. **Install Dependencies**
+   ```bash
+   npm install
+   cd client && npm install
+   ```
 
-### 3️⃣ Configure Environment Variables
-Create a `.env` file in the root directory and add:
-```bash
-MONGO_URL=mongodb://localhost:27017/StayEase
-SESSION_SECRET=your_secret_key
-MAPBOX_TOKEN=your_mapbox_token
-```
+3. **Environment Variables**
+   Create a `.env` file in the root directory and add the following:
+   ```env
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
+   ```
 
-### 4️⃣ Start MongoDB
-Ensure MongoDB is installed and running locally:
-```bash
-mongod
-```
-Or use MongoDB Atlas by updating the **MONGO_URL** in `.env`.
-
-### 5️⃣ Run the Application
-```bash
-npm start
-```
-Visit `http://localhost:8080` in your browser.
-
----
-
-## 📁 Project Structure
-```
-StayEase/
-│-- models/         # Mongoose schemas (User, Listing, Review)
-│-- routes/         # Express routes (listings, users, reviews)
-│-- views/          # EJS templates for frontend UI
-│-- middleware/     # Custom middlewares for authentication & validation
-│-- public/         # Static assets (CSS, JS, images)
-│-- utils/          # Utility functions & error handling
-│-- app.js          # Main application file
-│-- server.js       # Entry point for the app
-│-- .env            # Environment variables
-```
-
----
+4. **Run the Application**
+   ```bash
+   npm run dev
+   ```
 
 ## 🌍 Deployment
-StayEase is deployed on **Vercel**.
 
----
-
-## 🛡️ Security & Best Practices
-- **Passport.js** for authentication.
-- **express-session** for session management.
-- **Joi** for input validation.
-- Secure error handling middleware.
-
----
+### Deploying to Render
+1. Push your latest changes to GitHub:
+   ```bash
+   git add .
+   git commit -m "Added screenshots and updated README"
+   git push origin main
+   ```
+2. Deploy the backend on Render.
+3. Deploy the frontend on Vercel or Netlify.
 
 ## 🤝 Contributing
-Contributions are welcome! Feel free to fork this repository and submit pull requests.
+Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change.
+
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📧 Contact
-For any queries, reach out to [puneetsharma0910](https://github.com/puneetsharma0910).
+Happy coding! 🚀
 
