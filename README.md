@@ -1,6 +1,6 @@
 # StayEase
 
-StayEase is a full-fledged MERN stack Airbnb clone that allows users to list, search, and book accommodations seamlessly. It includes features such as authentication, property management, booking functionality, and cloud-based image storage.
+StayEase is a full-fledged MERN stack project that allows users to list, search, and book accommodations seamlessly. It includes features such as authentication, property management, booking functionality, and cloud-based image storage.
 
 ## 📌 Features
 
